@@ -42,9 +42,8 @@
     header {
       padding: 44px 22px 30px;
       background:
-        linear-gradient(135deg, rgba(255, 255, 255, .07) 0 1px, transparent 1px 100%),
-        linear-gradient(135deg, #1f3744 0%, #2e5964 100%);
-      background-size: 10px 10px, 100% 100%;
+        linear-gradient(90deg, rgba(31, 55, 68, .84) 0%, rgba(31, 55, 68, .52) 46%, rgba(31, 55, 68, .08) 78%, rgba(31, 55, 68, 0) 100%),
+        url("images/cover.webp") 65% center / cover no-repeat;
       border-bottom: 4px solid var(--gold);
     }
 
@@ -149,6 +148,146 @@
       margin: 12px 2px 0;
       color: var(--accent-dark);
       font-size: .82rem;
+    }
+
+    .dinner-vote {
+      margin: 0 0 30px;
+      padding: 16px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-top: 4px solid var(--gold);
+      border-radius: 4px;
+      box-shadow: var(--shadow);
+    }
+
+    .dinner-vote-intro {
+      margin: 0 2px 14px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .dinner-vote-form {
+      display: grid;
+      gap: 12px;
+    }
+
+    .dinner-vote-field,
+    .dinner-vote-options legend {
+      color: var(--accent-dark);
+      font-size: .86rem;
+      font-weight: 800;
+    }
+
+    .dinner-vote-input {
+      display: block;
+      width: 100%;
+      margin-top: 5px;
+      padding: 10px 11px;
+      color: var(--ink);
+      background: #f7f9f8;
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      font: inherit;
+    }
+
+    .dinner-vote-input:focus {
+      outline: 2px solid rgba(201, 155, 83, .35);
+      border-color: var(--gold);
+    }
+
+    .dinner-vote-options {
+      margin: 0;
+      padding: 0;
+      border: 0;
+    }
+
+    .dinner-vote-options legend { padding: 0; }
+
+    .dinner-vote-option-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .dinner-vote-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 11px;
+      color: var(--ink);
+      background: #f7f9f8;
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .dinner-vote-option:has(input:checked) {
+      color: var(--accent-dark);
+      background: #fffaf3;
+      border-color: var(--gold);
+    }
+
+    .dinner-vote-option input { accent-color: var(--accent); }
+
+    .dinner-vote-button {
+      justify-self: start;
+      padding: 9px 18px;
+      color: #fffaf3;
+      background: var(--accent-dark);
+      border: 0;
+      border-radius: 3px;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .dinner-vote-button:disabled { cursor: wait; opacity: .62; }
+
+    .dinner-vote-status {
+      min-height: 1.5em;
+      margin: 0;
+      color: var(--muted);
+      font-size: .84rem;
+    }
+
+    .dinner-vote-status.is-success { color: #2f6b4f; }
+    .dinner-vote-status.is-error { color: #9a493f; }
+
+    .dinner-vote-results {
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    .dinner-vote-results h3 {
+      margin-bottom: 9px;
+      color: var(--accent-dark);
+      font-size: 1rem;
+    }
+
+    .dinner-vote-counts {
+      display: grid;
+      gap: 7px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .dinner-vote-count {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 8px 10px;
+      color: var(--ink);
+      background: #f7f9f8;
+      border: 1px solid var(--line);
+      border-radius: 3px;
+    }
+
+    .dinner-vote-count strong { color: var(--accent-dark); }
+
+    @media (min-width: 560px) {
+      .dinner-vote-option-list { grid-template-columns: repeat(3, 1fr); }
     }
 
     .day {
@@ -315,6 +454,36 @@
         <p class="family-note">同行暱稱：阿凱・小安・大熊・小美</p>
       </section>
 
+      <section class="dinner-vote" aria-labelledby="dinner-vote-title">
+        <div class="overview-heading">
+          <h2 id="dinner-vote-title">晚餐投票</h2>
+          <span>DINNER VOTE</span>
+        </div>
+        <p class="dinner-vote-intro">填寫暱稱，選一個你想吃的晚餐，下面會即時顯示目前票數。</p>
+        <form id="dinner-vote-form" class="dinner-vote-form">
+          <label class="dinner-vote-field" for="dinner-vote-nickname">
+            暱稱
+            <input class="dinner-vote-input" id="dinner-vote-nickname" name="nickname" type="text" maxlength="40" autocomplete="nickname" required placeholder="例如：小安">
+          </label>
+          <fieldset class="dinner-vote-options">
+            <legend>晚餐選項</legend>
+            <div class="dinner-vote-option-list">
+              <label class="dinner-vote-option"><input type="radio" name="dinner-option" value="台南小吃" required>台南小吃</label>
+              <label class="dinner-vote-option"><input type="radio" name="dinner-option" value="牛肉湯">牛肉湯</label>
+              <label class="dinner-vote-option"><input type="radio" name="dinner-option" value="海鮮料理">海鮮料理</label>
+            </div>
+          </fieldset>
+          <button class="dinner-vote-button" type="submit">送出投票</button>
+          <p class="dinner-vote-status" id="dinner-vote-status" role="status" aria-live="polite"></p>
+        </form>
+        <div class="dinner-vote-results" aria-live="polite">
+          <h3>目前票數</h3>
+          <ul class="dinner-vote-counts" id="dinner-vote-counts">
+            <li class="dinner-vote-count"><span>載入中…</span><strong>—</strong></li>
+          </ul>
+        </div>
+      </section>
+
       <section class="day" id="day-one">
         <div class="day-heading">
           <h2>第一天</h2>
@@ -326,6 +495,7 @@
             <div class="card">
               <h3 class="place">示意早餐店 <small>吃</small></h3>
               <p class="description">先用一碗熱呼呼的牛肉湯開場，補充體力再開始逛老城。</p>
+              <p class="description"><a href="https://www.google.com/maps/search/?api=1&amp;query=%E7%A4%BA%E6%84%8F%E6%97%A9%E9%A4%90%E5%BA%97%20%E5%8F%B0%E5%8D%97" target="_blank" rel="noopener noreferrer">在 Google 地圖打開</a></p>
             </div>
           </article>
           <article class="stop">
@@ -333,6 +503,7 @@
             <div class="card">
               <h3 class="place">赤崁樓 <small>逛</small></h3>
               <p class="description">看看紅磚古蹟與庭院細節，順著周邊巷弄慢慢走。</p>
+              <p class="description"><a href="https://www.google.com/maps/search/?api=1&amp;query=%E8%B5%A4%E5%B4%81%E6%A8%93%20%E5%8F%B0%E5%8D%97" target="_blank" rel="noopener noreferrer">在 Google 地圖打開</a></p>
             </div>
           </article>
           <article class="stop">
@@ -340,6 +511,7 @@
             <div class="card">
               <h3 class="place">示意甜點店 <small>休息</small></h3>
               <p class="description">找間有冷氣的店坐下來，喝杯飲料、交換今天拍到的照片。</p>
+              <p class="description"><a href="https://www.google.com/maps/search/?api=1&amp;query=%E7%A4%BA%E6%84%8F%E7%94%9C%E9%BB%9E%E5%BA%97%20%E5%8F%B0%E5%8D%97" target="_blank" rel="noopener noreferrer">在 Google 地圖打開</a></p>
             </div>
           </article>
           <article class="stop">
@@ -347,6 +519,7 @@
             <div class="card">
               <h3 class="place">示意晚餐店 <small>吃</small></h3>
               <p class="description">用一頓台南風味晚餐收尾，吃飽後散步感受夜色再回住宿。</p>
+              <p class="description"><a href="https://www.google.com/maps/search/?api=1&amp;query=%E7%A4%BA%E6%84%8F%E6%99%9A%E9%A4%90%E5%BA%97%20%E5%8F%B0%E5%8D%97" target="_blank" rel="noopener noreferrer">在 Google 地圖打開</a></p>
             </div>
           </article>
         </div>
@@ -363,6 +536,7 @@
             <div class="card">
               <h3 class="place">示意早午餐店 <small>吃</small></h3>
               <p class="description">睡飽後悠閒吃早午餐，整理行李，準備往下一段旅程出發。</p>
+              <p class="description"><a href="https://www.google.com/maps/search/?api=1&amp;query=%E7%A4%BA%E6%84%8F%E6%97%A9%E5%8D%88%E9%A4%90%E5%BA%97%20%E5%8F%B0%E5%8D%97" target="_blank" rel="noopener noreferrer">在 Google 地圖打開</a></p>
             </div>
           </article>
           <article class="stop">
@@ -370,6 +544,7 @@
             <div class="card">
               <h3 class="place">安平古堡 <small>逛</small></h3>
               <p class="description">沿著古堡與老街散步，感受安平的歷史，也順便買些伴手禮。</p>
+              <p class="description"><a href="https://www.google.com/maps/search/?api=1&amp;query=%E5%AE%89%E5%B9%B3%E5%8F%A4%E5%A0%A1%20%E5%8F%B0%E5%8D%97" target="_blank" rel="noopener noreferrer">在 Google 地圖打開</a></p>
             </div>
           </article>
           <article class="stop">
@@ -377,6 +552,7 @@
             <div class="card">
               <h3 class="place">示意咖啡店 <small>休息</small></h3>
               <p class="description">找一個舒服的窗邊位置，讓雙腳休息，也把旅程慢慢收進心裡。</p>
+              <p class="description"><a href="https://www.google.com/maps/search/?api=1&amp;query=%E7%A4%BA%E6%84%8F%E5%92%96%E5%95%A1%E5%BA%97%20%E5%8F%B0%E5%8D%97" target="_blank" rel="noopener noreferrer">在 Google 地圖打開</a></p>
             </div>
           </article>
           <article class="stop">
@@ -384,6 +560,7 @@
             <div class="card">
               <h3 class="place">台南車站 <small>返程</small></h3>
               <p class="description">預留交通與買伴手禮的時間，帶著滿滿回憶踏上返程。</p>
+              <p class="description"><a href="https://www.google.com/maps/search/?api=1&amp;query=%E5%8F%B0%E5%8D%97%E8%BB%8A%E7%AB%99%20%E5%8F%B0%E5%8D%97" target="_blank" rel="noopener noreferrer">在 Google 地圖打開</a></p>
             </div>
           </article>
         </div>
@@ -408,5 +585,80 @@
 
     <footer>一起走一趟台南，把工作的節奏留在出發之前。</footer>
   </div>
+  <script>
+    (() => {
+      const supabaseUrl = "https://yyajofosldybvwojfzth.supabase.co";
+      const supabasePublishableKey = "sb_publishable_Df9xembx6LX7TBXd1z2CBQ_qrtBg5vn";
+      const dinnerVotesUrl = `${supabaseUrl}/rest/v1/dinner_votes`;
+      const dinnerOptions = ["台南小吃", "牛肉湯", "海鮮料理"];
+      const form = document.querySelector("#dinner-vote-form");
+      const nicknameInput = document.querySelector("#dinner-vote-nickname");
+      const submitButton = form.querySelector("button[type=submit]");
+      const status = document.querySelector("#dinner-vote-status");
+      const counts = document.querySelector("#dinner-vote-counts");
+      const headers = {
+        apikey: supabasePublishableKey,
+        Authorization: `Bearer ${supabasePublishableKey}`,
+        "Content-Type": "application/json",
+        Prefer: "return=minimal"
+      };
+
+      function setStatus(message, type) {
+        status.textContent = message;
+        status.className = `dinner-vote-status${type ? ` is-${type}` : ""}`;
+      }
+
+      function renderCounts(votes) {
+        const voteCounts = Object.fromEntries(dinnerOptions.map((option) => [option, 0]));
+        votes.forEach((vote) => {
+          if (Object.prototype.hasOwnProperty.call(voteCounts, vote.option)) {
+            voteCounts[vote.option] += 1;
+          }
+        });
+        counts.innerHTML = dinnerOptions.map((option) => `
+          <li class="dinner-vote-count">
+            <span>${option}</span>
+            <strong>${voteCounts[option]} 票</strong>
+          </li>
+        `).join("");
+      }
+
+      async function loadVotes() {
+        const response = await fetch(`${dinnerVotesUrl}?select=option`, {
+          headers,
+          cache: "no-store"
+        });
+        if (!response.ok) throw new Error(`讀取失敗（${response.status}）`);
+        renderCounts(await response.json());
+      }
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const nickname = nicknameInput.value.trim();
+        const option = form.querySelector("input[name=dinner-option]:checked")?.value;
+        if (!nickname || !option) return;
+
+        submitButton.disabled = true;
+        setStatus("送出中…", "");
+        try {
+          const response = await fetch(dinnerVotesUrl, {
+            method: "POST",
+            headers,
+            body: JSON.stringify({ nickname, option })
+          });
+          if (!response.ok) throw new Error(`投票失敗（${response.status}）`);
+          form.reset();
+          setStatus("投票成功，票數已更新。", "success");
+          await loadVotes();
+        } catch (error) {
+          setStatus("目前無法投票，請稍後再試。", "error");
+        } finally {
+          submitButton.disabled = false;
+        }
+      });
+
+      loadVotes().catch(() => setStatus("目前無法載入票數，請稍後重新整理。", "error"));
+    })();
+  </script>
 </body>
 </html>
