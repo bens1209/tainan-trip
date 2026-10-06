@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1f3744">
+  <title>台南放鬆自由行</title>
+  <style>
+    :root {
+      --ink: #24333b;
+      --muted: #69757b;
+      --paper: #fcfbf8;
+      --cream: #edf0ef;
+      --line: #dce3e4;
+      --accent: #b76d3e;
+      --accent-dark: #1f3744;
+      --gold: #c99b53;
+      --shadow: 0 10px 28px rgba(31, 55, 68, 0.12);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--cream);
+      font-family: -apple-system, BlinkMacSystemFont, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .page {
+      width: min(100%, 720px);
+      margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: var(--shadow);
+    }
+
+    header {
+      padding: 44px 22px 30px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, .07) 0 1px, transparent 1px 100%),
+        linear-gradient(135deg, #1f3744 0%, #2e5964 100%);
+      background-size: 10px 10px, 100% 100%;
+      border-bottom: 4px solid var(--gold);
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: #e7c886;
+      font-size: .82rem;
+      font-weight: 800;
+      letter-spacing: .18em;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      margin-bottom: 10px;
+      color: #fff;
+      font-size: clamp(2rem, 9vw, 3.5rem);
+      line-height: 1.15;
+      letter-spacing: .06em;
+    }
+
+    .intro {
+      max-width: 30em;
+      margin-bottom: 0;
+      color: rgba(255, 255, 255, .82);
+      font-size: .98rem;
+    }
+
+    main { padding: 24px 16px 44px; }
+
+    .overview {
+      margin: 0 0 30px;
+      padding: 16px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-top: 4px solid var(--gold);
+      border-radius: 4px;
+      box-shadow: var(--shadow);
+    }
+
+    .overview-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 0 2px 12px;
+    }
+
+    .overview-heading h2 {
+      margin-bottom: 0;
+      color: var(--accent-dark);
+      font-size: 1.28rem;
+      letter-spacing: .08em;
+    }
+
+    .overview-heading span {
+      color: var(--muted);
+      font-size: .8rem;
+      white-space: nowrap;
+    }
+
+    .overview-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .overview-card {
+      display: block;
+      padding: 12px 13px;
+      color: var(--ink);
+      background: #f7f9f8;
+      border: 1px solid var(--line);
+      border-radius: 3px;
+      text-decoration: none;
+    }
+
+    .overview-card:active,
+    .overview-card:hover { background: #fff; border-color: var(--gold); }
+
+    .overview-day {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--accent-dark);
+      font-size: .8rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+    }
+
+    .overview-card strong {
+      display: block;
+      margin-bottom: 2px;
+      font-size: 1.05rem;
+    }
+
+    .overview-card span:last-child {
+      color: var(--muted);
+      font-size: .86rem;
+      line-height: 1.55;
+    }
+
+    .family-note {
+      margin: 12px 2px 0;
+      color: var(--accent-dark);
+      font-size: .82rem;
+    }
+
+    .day {
+      margin-bottom: 28px;
+      scroll-margin-top: 18px;
+    }
+
+    .day:last-child { margin-bottom: 0; }
+
+    .day-heading {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 0 6px 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--line);
+    }
+
+    .day-heading h2 {
+      margin-bottom: 0;
+      color: var(--accent-dark);
+      font-size: 1.48rem;
+      letter-spacing: .08em;
+    }
+
+    .day-heading span {
+      color: var(--muted);
+      font-size: .82rem;
+      white-space: nowrap;
+    }
+
+    .stops {
+      position: relative;
+      display: grid;
+      gap: 12px;
+    }
+
+    .stops::before {
+      content: "";
+      position: absolute;
+      top: 20px;
+      bottom: 20px;
+      left: 26px;
+      width: 2px;
+      background: var(--line);
+    }
+
+    .stop {
+      position: relative;
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .time {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      width: 54px;
+      min-height: 54px;
+      padding: 7px 3px;
+      color: #fffaf3;
+      background: var(--accent);
+      border: 4px solid var(--paper);
+      border-radius: 50%;
+      box-shadow: 0 0 0 1px var(--accent);
+      font-size: .73rem;
+      font-weight: 800;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    .card {
+      padding: 14px 15px 15px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(31, 55, 68, .055);
+    }
+
+    .place {
+      margin-bottom: 4px;
+      font-size: 1.08rem;
+      line-height: 1.35;
+    }
+
+    .place small {
+      display: inline-block;
+      margin-left: 5px;
+      padding: 2px 6px;
+      color: var(--accent-dark);
+      background: #f9e9d8;
+      border-radius: 5px;
+      font-size: .68rem;
+      font-weight: 700;
+      vertical-align: middle;
+    }
+
+    .description {
+      margin-bottom: 0;
+      color: var(--muted);
+      font-size: .92rem;
+      line-height: 1.65;
+    }
+
+    .note {
+      margin: 4px 6px 0;
+      padding: 12px 14px;
+      color: #76562a;
+      background: #fff4d9;
+      border: 1px solid #f0ddb1;
+      border-radius: 10px;
+      font-size: .84rem;
+    }
+
+    footer {
+      padding: 20px 22px 28px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      font-size: .82rem;
+      text-align: center;
+    }
+
+    @media (min-width: 560px) {
+      main { padding: 32px 28px 52px; }
+      header { padding: 60px 36px 38px; }
+      .overview-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <p class="eyebrow">TEAM GETAWAY · TAINAN</p>
+      <h1>台南放鬆自由行</h1>
+      <p class="intro">給團隊留一段放慢腳步的時間，走進古蹟、巷弄與小吃之間。以下店名與時間為示意，之後再換成實際安排。</p>
+    </header>
+
+    <main>
+      <section class="overview" aria-labelledby="overview-title">
+        <div class="overview-heading">
+          <h2 id="overview-title">兩日行程總覽</h2>
+          <span>QUICK VIEW</span>
+        </div>
+        <div class="overview-grid">
+          <a class="overview-card" href="#day-one">
+            <span class="overview-day">第一天</span>
+            <strong>老城散步</strong>
+            <span>示意早餐店 → 赤崁樓 → 示意甜點店 → 示意晚餐店</span>
+          </a>
+          <a class="overview-card" href="#day-two">
+            <span class="overview-day">第二天</span>
+            <strong>安平與午後返程</strong>
+            <span>示意早午餐店 → 安平古堡 → 示意咖啡店 → 台南車站</span>
+          </a>
+        </div>
+        <p class="family-note">同行暱稱：阿凱・小安・大熊・小美</p>
+      </section>
+
+      <section class="day" id="day-one">
+        <div class="day-heading">
+          <h2>第一天</h2>
+          <span>老城散步</span>
+        </div>
+        <div class="stops">
+          <article class="stop">
+            <div class="time">10:30</div>
+            <div class="card">
+              <h3 class="place">示意早餐店 <small>吃</small></h3>
+              <p class="description">先用一碗熱呼呼的牛肉湯開場，補充體力再開始逛老城。</p>
+            </div>
+          </article>
+          <article class="stop">
+            <div class="time">12:00</div>
+            <div class="card">
+              <h3 class="place">赤崁樓 <small>逛</small></h3>
+              <p class="description">看看紅磚古蹟與庭院細節，順著周邊巷弄慢慢走。</p>
+            </div>
+          </article>
+          <article class="stop">
+            <div class="time">15:00</div>
+            <div class="card">
+              <h3 class="place">示意甜點店 <small>休息</small></h3>
+              <p class="description">找間有冷氣的店坐下來，喝杯飲料、交換今天拍到的照片。</p>
+            </div>
+          </article>
+          <article class="stop">
+            <div class="time">18:00</div>
+            <div class="card">
+              <h3 class="place">示意晚餐店 <small>吃</small></h3>
+              <p class="description">用一頓台南風味晚餐收尾，吃飽後散步感受夜色再回住宿。</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="day" id="day-two">
+        <div class="day-heading">
+          <h2>第二天</h2>
+          <span>海線與午後</span>
+        </div>
+        <div class="stops">
+          <article class="stop">
+            <div class="time">09:00</div>
+            <div class="card">
+              <h3 class="place">示意早午餐店 <small>吃</small></h3>
+              <p class="description">睡飽後悠閒吃早午餐，整理行李，準備往下一段旅程出發。</p>
+            </div>
+          </article>
+          <article class="stop">
+            <div class="time">11:00</div>
+            <div class="card">
+              <h3 class="place">安平古堡 <small>逛</small></h3>
+              <p class="description">沿著古堡與老街散步，感受安平的歷史，也順便買些伴手禮。</p>
+            </div>
+          </article>
+          <article class="stop">
+            <div class="time">14:30</div>
+            <div class="card">
+              <h3 class="place">示意咖啡店 <small>休息</small></h3>
+              <p class="description">找一個舒服的窗邊位置，讓雙腳休息，也把旅程慢慢收進心裡。</p>
+            </div>
+          </article>
+          <article class="stop">
+            <div class="time">16:30</div>
+            <div class="card">
+              <h3 class="place">台南車站 <small>返程</small></h3>
+              <p class="description">預留交通與買伴手禮的時間，帶著滿滿回憶踏上返程。</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <p class="note">小提醒：店名、營業時間與交通安排目前都是示意，出發前記得替換成實際資訊。</p>
+
+      <section class="day" id="pre-trip">
+        <div class="day-heading">
+          <h2>行前提醒</h2>
+          <span>出發前確認</span>
+        </div>
+        <div class="card">
+          <p class="description"><strong>天氣：</strong>示意：晴時多雲，白天約 28°C。</p>
+          <p class="description"><strong>要帶的東西：</strong>示意：水壺、防曬、雨具、行動電源。</p>
+          <p class="description"><strong>集合時間：</strong>示意：第一天上午 10:00，台南車站前集合。</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>一起走一趟台南，把工作的節奏留在出發之前。</footer>
+  </div>
+</body>
+</html>
